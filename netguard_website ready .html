@@ -1,0 +1,758 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+  <!-- ═══════════════════════════════════════════
+       PRIMARY SEO META TAGS
+       ═══════════════════════════════════════════ -->
+  <title>NetGuard IDS/IPS – Network Intrusion Detection & Prevention System |</title>
+  <meta name="description" content="NetGuard is a real-time Network Intrusion Detection and Prevention System (IDS/IPS) developed as a graduation project by Electronics and Communication Engineering students. Detects SYN floods, port scans, and malicious IPs automatically." />
+  <meta name="keywords" content="NetGuard, IDS IPS, Intrusion Detection System, Intrusion Prevention System, network security, cybersecurity project, graduation project, electronics communication engineering, real-time network monitoring, SYN flood detection, port scan detection, Python PyQt5 security tool" />
+  <meta name="author" content="Marwan Abdelgawad, Ahmed Ashraf, Mahmoud Hosny, Ashraf Mohamed, Abdallah Sameer" />
+  <meta name="robots" content="index, follow" />
+  <meta name="language" content="English" />
+  <meta name="revisit-after" content="7 days" />
+
+  <!-- ═══════════════════════════════════════════
+       OPEN GRAPH (Facebook / LinkedIn / WhatsApp)
+       ═══════════════════════════════════════════ -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="NetGuard IDS/IPS – Real-Time Network Security System" />
+  <meta property="og:description" content="Monitor, detect, and block network threats in real time. NetGuard combines signature-based and anomaly-based detection with an AI chatbot assistant and live traffic dashboard." />
+  <meta property="og:image" content="https://og-image-placeholder.com/netguard-og.png" />
+  <meta property="og:locale" content="en_US" />
+
+  <!-- ═══════════════════════════════════════════
+       TWITTER CARD
+       ═══════════════════════════════════════════ -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="NetGuard IDS/IPS –  />
+  <meta name="twitter:description" content="A real-time Network Intrusion Detection and Prevention System built with Python, PyQt5, and AI." />
+
+  <!-- ═══════════════════════════════════════════
+       STRUCTURED DATA (JSON-LD) — Google Rich Results
+       ═══════════════════════════════════════════ -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "NetGuard IDS/IPS",
+    "applicationCategory": "SecurityApplication",
+    "operatingSystem": "Windows",
+    "description": "A real-time Network Intrusion Detection and Prevention System that monitors traffic, detects attacks, and blocks malicious IPs. Built as a graduation project for the Electronics and Communication Engineering department.",
+    "author": [
+      { "@type": "Person", "name": "Marwan Abdelgawad" },
+      { "@type": "Person", "name": "Ahmed Ashraf" },
+      { "@type": "Person", "name": "Mahmoud Hosny" },
+      { "@type": "Person", "name": "Ashraf Mohamed" },
+      { "@type": "Person", "name": "Abdallah Sameer" }
+    ],
+    "datePublished": "2026",
+    "keywords": "IDS, IPS, network security, intrusion detection, cybersecurity",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    }
+  }
+  </script>
+
+  <!-- ═══════════════════════════════════════════
+       FONTS
+       ═══════════════════════════════════════════ -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=JetBrains+Mono:wght@400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+
+  <style>
+    :root {
+      --bg: #04080f;
+      --surface: #0b1120;
+      --surface2: #111827;
+      --border: #1e2d45;
+      --accent: #00e5ff;
+      --accent2: #0070f3;
+      --text: #d4e4f7;
+      --muted: #5b7a9d;
+      --danger: #ff4c6a;
+      --success: #00e5b0;
+      --warning: #f5a623;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* ── BACKGROUND GRID ── */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(0,229,255,.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0,229,255,.03) 1px, transparent 1px);
+      background-size: 40px 40px;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* ── GLOW ORBS ── */
+    .orb {
+      position: fixed;
+      border-radius: 50%;
+      filter: blur(100px);
+      pointer-events: none;
+      z-index: 0;
+    }
+    .orb-1 { width: 500px; height: 500px; background: rgba(0,112,243,.12); top: -100px; left: -100px; }
+    .orb-2 { width: 400px; height: 400px; background: rgba(0,229,255,.08); bottom: 100px; right: -100px; }
+    .orb-3 { width: 300px; height: 300px; background: rgba(255,76,106,.06); top: 50%; left: 50%; transform: translate(-50%,-50%); }
+
+    /* ── NAV ── */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(4,8,15,.85);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+      padding: 0 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 60px;
+    }
+
+    .nav-logo {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: 1.2rem;
+      color: var(--accent);
+      letter-spacing: -0.5px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .nav-logo span { color: var(--text); }
+
+    .nav-links {
+      display: flex;
+      gap: 32px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: .78rem;
+      color: var(--muted);
+      text-decoration: none;
+      transition: color .2s;
+      letter-spacing: .5px;
+    }
+
+    .nav-links a:hover { color: var(--accent); }
+
+    /* ── HERO ── */
+    .hero {
+      position: relative;
+      z-index: 1;
+      padding: 100px 40px 80px;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: .72rem;
+      color: var(--accent);
+      background: rgba(0,229,255,.08);
+      border: 1px solid rgba(0,229,255,.2);
+      padding: 5px 14px;
+      border-radius: 999px;
+      margin-bottom: 28px;
+      animation: fadeUp .6s ease both;
+    }
+
+    .hero-badge::before {
+      content: '';
+      width: 6px; height: 6px;
+      background: var(--accent);
+      border-radius: 50%;
+      animation: pulse 1.4s infinite;
+    }
+
+    @keyframes pulse {
+      0%,100% { opacity:1; transform:scale(1); }
+      50% { opacity:.4; transform:scale(.7); }
+    }
+
+    .hero h1 {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(2.4rem, 6vw, 4.2rem);
+      font-weight: 800;
+      line-height: 1.05;
+      letter-spacing: -2px;
+      color: #fff;
+      margin-bottom: 20px;
+      animation: fadeUp .6s .1s ease both;
+    }
+
+    .hero h1 em {
+      font-style: normal;
+      color: var(--accent);
+    }
+
+    .hero p.sub {
+      font-size: 1.05rem;
+      color: var(--muted);
+      max-width: 600px;
+      line-height: 1.7;
+      margin-bottom: 40px;
+      animation: fadeUp .6s .2s ease both;
+    }
+
+    .hero-cta {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+      animation: fadeUp .6s .3s ease both;
+    }
+
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--accent);
+      color: var(--bg);
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      font-size: .9rem;
+      padding: 13px 26px;
+      border-radius: 8px;
+      text-decoration: none;
+      transition: transform .2s, box-shadow .2s;
+      box-shadow: 0 0 30px rgba(0,229,255,.25);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 0 50px rgba(0,229,255,.4);
+    }
+
+    .btn-secondary {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: transparent;
+      color: var(--text);
+      font-family: 'Syne', sans-serif;
+      font-weight: 600;
+      font-size: .9rem;
+      padding: 13px 26px;
+      border-radius: 8px;
+      text-decoration: none;
+      border: 1px solid var(--border);
+      transition: border-color .2s, color .2s;
+    }
+
+    .btn-secondary:hover { border-color: var(--accent); color: var(--accent); }
+
+    @keyframes fadeUp {
+      from { opacity:0; transform:translateY(20px); }
+      to   { opacity:1; transform:translateY(0); }
+    }
+
+    /* ── STATS BAR ── */
+    .stats-bar {
+      position: relative;
+      z-index: 1;
+      max-width: 900px;
+      margin: 0 auto 60px;
+      padding: 0 40px;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      background: var(--border);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+    }
+
+    .stat {
+      background: var(--surface);
+      padding: 24px 28px;
+      text-align: center;
+    }
+
+    .stat-num {
+      font-family: 'Syne', sans-serif;
+      font-size: 2rem;
+      font-weight: 800;
+      color: var(--accent);
+    }
+
+    .stat-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: .7rem;
+      color: var(--muted);
+      margin-top: 4px;
+      letter-spacing: .5px;
+    }
+
+    /* ── MAIN CONTENT ── */
+    .content {
+      position: relative;
+      z-index: 1;
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 0 40px 80px;
+      display: flex;
+      flex-direction: column;
+      gap: 32px;
+    }
+
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 32px;
+      position: relative;
+      overflow: hidden;
+      transition: border-color .3s;
+    }
+
+    .card:hover { border-color: rgba(0,229,255,.25); }
+
+    .card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--accent), transparent);
+      opacity: 0;
+      transition: opacity .3s;
+    }
+
+    .card:hover::before { opacity: 1; }
+
+    .card-tag {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: .65rem;
+      color: var(--accent);
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+
+    h2 {
+      font-family: 'Syne', sans-serif;
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 16px;
+    }
+
+    p { line-height: 1.75; color: var(--text); font-size: .95rem; }
+
+    /* ── FEATURES GRID ── */
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 16px;
+      margin-top: 8px;
+    }
+
+    .feature-item {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 18px;
+      transition: border-color .2s, transform .2s;
+    }
+
+    .feature-item:hover {
+      border-color: rgba(0,229,255,.3);
+      transform: translateY(-3px);
+    }
+
+    .feature-icon {
+      font-size: 1.5rem;
+      margin-bottom: 10px;
+    }
+
+    .feature-title {
+      font-family: 'Syne', sans-serif;
+      font-size: .9rem;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 6px;
+    }
+
+    .feature-desc {
+      font-size: .8rem;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
+    /* ── ATTACK BADGES ── */
+    .attack-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 12px;
+    }
+
+    .attack-badge {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: .75rem;
+      padding: 6px 14px;
+      border-radius: 6px;
+      border: 1px solid;
+    }
+
+    .badge-red   { color: var(--danger);  border-color: rgba(255,76,106,.3);  background: rgba(255,76,106,.07); }
+    .badge-blue  { color: var(--accent);  border-color: rgba(0,229,255,.3);   background: rgba(0,229,255,.07); }
+    .badge-green { color: var(--success); border-color: rgba(0,229,176,.3);   background: rgba(0,229,176,.07); }
+    .badge-warn  { color: var(--warning); border-color: rgba(245,166,35,.3);  background: rgba(245,166,35,.07); }
+
+    /* ── TEAM ── */
+    .team-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 12px;
+      margin-top: 8px;
+    }
+
+    .member-card {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 20px 16px;
+      text-align: center;
+      transition: border-color .2s, transform .2s;
+    }
+
+    .member-card:hover {
+      border-color: rgba(0,229,255,.3);
+      transform: translateY(-3px);
+    }
+
+    .member-avatar {
+      width: 50px;
+      height: 50px;
+      background: linear-gradient(135deg, var(--accent2), var(--accent));
+      border-radius: 50%;
+      margin: 0 auto 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: 1.1rem;
+      color: var(--bg);
+    }
+
+    .member-name {
+      font-family: 'Syne', sans-serif;
+      font-size: .85rem;
+      font-weight: 700;
+      color: #fff;
+    }
+
+    .member-role {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: .65rem;
+      color: var(--muted);
+      margin-top: 4px;
+    }
+
+    /* ── OBJECTIVES ── */
+    .obj-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-top: 8px;
+    }
+
+    .obj-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      padding: 12px 16px;
+      background: var(--bg);
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      font-size: .9rem;
+      line-height: 1.5;
+    }
+
+    .obj-list li::before {
+      content: '→';
+      color: var(--accent);
+      font-family: 'JetBrains Mono', monospace;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    /* ── TECH STACK ── */
+    .tech-stack {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 12px;
+    }
+
+    .tech-tag {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: .75rem;
+      color: var(--accent2);
+      background: rgba(0,112,243,.1);
+      border: 1px solid rgba(0,112,243,.25);
+      padding: 5px 12px;
+      border-radius: 6px;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      position: relative;
+      z-index: 1;
+      border-top: 1px solid var(--border);
+      padding: 32px 40px;
+      text-align: center;
+      background: var(--surface);
+    }
+
+    .footer-logo {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: 1.4rem;
+      color: var(--accent);
+      margin-bottom: 8px;
+    }
+
+    footer p {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: .72rem;
+      color: var(--muted);
+    }
+
+    .footer-flag { font-size: 1rem; }
+
+    @media (max-width: 600px) {
+      nav { padding: 0 20px; }
+      .nav-links { display: none; }
+      .hero, .content { padding-left: 20px; padding-right: 20px; }
+      .stats-bar { margin: 0 20px 40px; grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+
+<body>
+
+<!-- Decorative orbs -->
+<div class="orb orb-1"></div>
+<div class="orb orb-2"></div>
+<div class="orb orb-3"></div>
+
+<!-- ══ NAV ══ -->
+<nav>
+  <div class="nav-logo">⬡ <span>Net</span>Guard</div>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#features">Features</a></li>
+    <li><a href="#team">Team</a></li>
+    <li><a href="NetGuard.exe 64-bit" download>Download</a></li>
+  </ul>
+</nav>
+
+<!-- ══ HERO ══ -->
+<section class="hero" id="about" aria-label="Hero section">
+  <div class="hero-badge"> Network IDS/IPS·2026</div>
+
+  <h1>Network <em>Intrusion</em><br/>Detection &amp; Prevention system</h1>
+
+  <p class="sub">
+    NetGuard is a real-time IDS/IPS system that monitors network traffic, identifies malicious patterns,
+    and automatically blocks threats — built to simulate enterprise-grade cybersecurity infrastructure.
+  </p>
+
+  <div class="hero-cta">
+    <a href="NetGuard.exe" download class="btn-primary">
+      ⬇ Download NetGuard.exe 64-bit
+    </a>
+    <a href="#features" class="btn-secondary">
+      ↓ See Features
+    </a>
+  </div>
+</section>
+
+<!-- ══ STATS ══ -->
+<div class="stats-bar" aria-label="Project statistics">
+  <div class="stat">
+    <div class="stat-num">4+</div>
+    <div class="stat-label">ATTACK TYPES DETECTED</div>
+  </div>
+  <div class="stat">
+    <div class="stat-num">Real-Time</div>
+    <div class="stat-label">TRAFFIC MONITORING</div>
+  </div>
+  <div class="stat">
+    <div class="stat-num">AI</div>
+    <div class="stat-label">POWERED ANALYSIS</div>
+  </div>
+</div>
+
+<!-- ══ MAIN CONTENT ══ -->
+<main class="content">
+
+  <!-- Description -->
+  <article class="card" id="description">
+    <div class="card-tag">// Overview</div>
+    <h2>What is NetGuard?</h2>
+    <p>
+      NetGuard IDS/IPS is a network security solution designed to monitor, analyze, and protect computer networks
+      from unauthorized access and malicious activities in real time. The system integrates both
+      <strong>Intrusion Detection</strong> and <strong>Intrusion Prevention</strong> capabilities,
+      using signature-based and anomaly-based detection techniques to identify potential threats.
+      It is built to simulate enterprise-level cybersecurity environments, improving network visibility,
+      threat response time, and ensuring the CIA triad — confidentiality, integrity, and availability.
+    </p>
+
+    <div class="tech-stack" style="margin-top:20px;">
+      <span class="tech-tag">Python</span>
+      <span class="tech-tag">PyQt5</span>
+      <span class="tech-tag">Flask / SocketIO</span>
+      <span class="tech-tag">Scapy / Npcap</span>
+      <span class="tech-tag">Groq AI (LLaMA 3.3 70B)</span>
+      <span class="tech-tag">PyQtGraph</span>
+      <span class="tech-tag">Leaflet.js</span>
+      <span class="tech-tag">Windows Firewall (netsh)</span>
+    </div>
+  </article>
+
+  <!-- Attacks Detected -->
+  <article class="card">
+    <div class="card-tag">// Threat Detection</div>
+    <h2>Attacks NetGuard Detects &amp; Blocks</h2>
+    <p>NetGuard identifies and automatically mitigates the following network attack types:</p>
+    <div class="attack-grid">
+      <span class="attack-badge badge-red">SYN Flood</span>
+      <span class="attack-badge badge-blue">UDP Flood</span>
+      <span class="attack-badge badge-warn">ICMP Flood</span>
+      <span class="attack-badge badge-green">Port Scan</span>
+      <span class="attack-badge badge-red">DDoS Patterns</span>
+      <span class="attack-badge badge-blue">Malicious IP Blocking</span>
+    </div>
+  </article>
+
+  <!-- Features -->
+  <article class="card" id="features">
+    <div class="card-tag">// Capabilities</div>
+    <h2>Key Features</h2>
+    <div class="features-grid">
+      <div class="feature-item">
+        <div class="feature-icon">📡</div>
+        <div class="feature-title">Live Traffic Monitor</div>
+        <div class="feature-desc">Real-time packet capture and visualization with PyQtGraph charts.</div>
+      </div>
+      <div class="feature-item">
+        <div class="feature-icon">🤖</div>
+        <div class="feature-title">AI Chatbot Assistant</div>
+        <div class="feature-desc">Powered by LLaMA 3.3 70B via Groq for intelligent threat analysis.</div>
+      </div>
+      <div class="feature-item">
+        <div class="feature-icon">🛡️</div>
+        <div class="feature-title">Auto IP Blocking</div>
+        <div class="feature-desc">Malicious IPs are blocked instantly using Windows Firewall rules.</div>
+      </div>
+      <div class="feature-item">
+        <div class="feature-icon">🗺️</div>
+        <div class="feature-title">Dark Map View</div>
+        <div class="feature-desc">Geo-IP tracking of threats with a Leaflet.js dark-themed map.</div>
+      </div>
+      <div class="feature-item">
+        <div class="feature-icon">📧</div>
+        <div class="feature-title">Email Alerts</div>
+        <div class="feature-desc">Instant notifications when threats are detected on your network.</div>
+      </div>
+      <div class="feature-item">
+        <div class="feature-icon">🌐</div>
+        <div class="feature-title">Web Dashboard</div>
+        <div class="feature-desc">Flask-powered dashboard accessible from any browser on your network.</div>
+      </div>
+    </div>
+  </article>
+
+  <!-- Objectives -->
+  <article class="card">
+    <div class="card-tag">// Objectives</div>
+    <h2>Project Goals</h2>
+    <ul class="obj-list" aria-label="Project objectives">
+      <li>Monitor network traffic in real time with zero manual intervention</li>
+      <li>Detect suspicious activities, DDoS attempts, and unauthorized scans</li>
+      <li>Simulate IDS/IPS behavior in a controlled enterprise environment</li>
+      <li>Improve cybersecurity awareness through AI-powered threat explanations</li>
+      <li>Provide actionable alerts and automated IP blocking to minimize damage</li>
+    </ul>
+  </article>
+
+  <!-- Team -->
+  <article class="card" id="team">
+    <div class="card-tag">// The Team</div>
+    <h2>Meet the Developers</h2>
+    <p style="margin-bottom:20px; color:var(--muted); font-size:.85rem;">
+      Electronics &amp; Communication Engineering Department · Class of 2026
+    </p>
+    <div class="team-grid">
+      <div class="member-card">
+        <div class="member-avatar">MA</div>
+        <div class="member-name">Marwan Abdelgawad</div>
+        <div class="member-role">// TEAM LEADER</div>
+      </div>
+      <div class="member-card">
+        <div class="member-avatar">AA</div>
+        <div class="member-name">Ahmed Ashraf</div>
+        <div class="member-role">// TEAM MEMBER</div>
+      </div>
+      <div class="member-card">
+        <div class="member-avatar">MH</div>
+        <div class="member-name">Mahmoud Hosny</div>
+        <div class="member-role">// TEAM MEMBER</div>
+      </div>
+      <div class="member-card">
+        <div class="member-avatar">AM</div>
+        <div class="member-name">Ashraf Mohamed</div>
+        <div class="member-role">// TEAM MEMBER</div>
+      </div>
+      <div class="member-card">
+        <div class="member-avatar">AS</div>
+        <div class="member-name">Abdallah Sameer</div>
+        <div class="member-role">// TEAM MEMBER</div>
+      </div>
+    </div>
+  </article>
+
+</main>
+
+<!-- ══ FOOTER ══ -->
+<footer>
+  <div class="footer-logo">NetGuard</div>
+  <p>© 2026 NetGuard IDS/IPS Project · All Rights Reserved</p>
+  <p style="margin-top:6px;">Made in Egypt <span class="footer-flag">🇪🇬</span> · Electronics &amp; Communication Engineering</p>
+</footer>
+
+</body>
+</html>
