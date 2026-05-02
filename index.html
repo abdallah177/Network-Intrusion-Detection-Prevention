@@ -3,601 +3,206 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
- 
   <title>NetGuard IDS/IPS – Network Intrusion Detection & Prevention System | Graduation Project 2026</title>
   <meta name="description" content="NetGuard is a real-time Network Intrusion Detection and Prevention System (IDS/IPS) developed as a graduation project by Electronics and Communication Engineering students. Detects SYN floods, port scans, and malicious IPs automatically." />
-  <meta name="keywords" content="NetGuard, IDS IPS, Intrusion Detection System, Intrusion Prevention System, network security, cybersecurity project, graduation project, electronics communication engineering, real-time network monitoring, SYN flood detection, port scan detection, Python PyQt5 security tool" />
+  <meta name="keywords" content="NetGuard, IDS IPS, Intrusion Detection System, Intrusion Prevention System, network security, cybersecurity project, graduation project, electronics communication engineering, real-time network monitoring, SYN flood detection, port scan detection, Python PyQt5 security tool, Arduino LED indicator" />
   <meta name="author" content="Marwan Abdelgawad, Ahmed Ashraf, Mahmoud Hosny, Ashraf Mohamed, Abdallah Sameer" />
   <meta name="robots" content="index, follow" />
   <meta name="language" content="English" />
   <meta name="revisit-after" content="7 days" />
- 
   <meta property="og:type" content="website" />
   <meta property="og:title" content="NetGuard IDS/IPS – Real-Time Network Security System" />
-  <meta property="og:description" content="Monitor, detect, and block network threats in real time. NetGuard combines signature-based and anomaly-based detection with an AI chatbot assistant and live traffic dashboard." />
+  <meta property="og:description" content="Monitor, detect, and block network threats in real time." />
   <meta property="og:locale" content="en_US" />
- 
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="NetGuard IDS/IPS – Graduation Project 2026" />
-  <meta name="twitter:description" content="A real-time Network Intrusion Detection and Prevention System built with Python, PyQt5, and AI." />
- 
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "SoftwareApplication",
-    "name": "NetGuard IDS/IPS",
-    "applicationCategory": "SecurityApplication",
-    "operatingSystem": "Windows",
-    "description": "A real-time Network Intrusion Detection and Prevention System that monitors traffic, detects attacks, and blocks malicious IPs. Built as a graduation project for the Electronics and Communication Engineering department.",
-    "author": [
-      { "@type": "Person", "name": "Marwan Abdelgawad" },
-      { "@type": "Person", "name": "Ahmed Ashraf" },
-      { "@type": "Person", "name": "Mahmoud Hosny" },
-      { "@type": "Person", "name": "Ashraf Mohamed" },
-      { "@type": "Person", "name": "Abdallah Sameer" }
-    ],
-    "datePublished": "2026",
-    "keywords": "IDS, IPS, network security, intrusion detection, cybersecurity",
-    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
-  }
-  </script>
- 
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"SoftwareApplication","name":"NetGuard IDS/IPS","applicationCategory":"SecurityApplication","operatingSystem":"Windows","author":[{"@type":"Person","name":"Marwan Abdelgawad"},{"@type":"Person","name":"Ahmed Ashraf"},{"@type":"Person","name":"Mahmoud Hosny"},{"@type":"Person","name":"Ashraf Mohamed"},{"@type":"Person","name":"Abdallah Sameer"}],"datePublished":"2026","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}}</script>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=JetBrains+Mono:wght@400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
- 
   <style>
     :root {
-      --bg: #04080f;
-      --surface: #0b1120;
-      --surface2: #111827;
-      --border: #1e2d45;
-      --accent: #00e5ff;
-      --accent2: #0070f3;
-      --text: #d4e4f7;
-      --muted: #5b7a9d;
-      --danger: #ff4c6a;
-      --success: #00e5b0;
-      --warning: #f5a623;
+      --bg:#04080f;--surface:#0b1120;--border:#1e2d45;
+      --accent:#00e5ff;--accent2:#0070f3;--text:#d4e4f7;
+      --muted:#5b7a9d;--danger:#ff4c6a;--success:#00e5b0;--warning:#f5a623;
     }
- 
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
- 
-    body {
-      font-family: 'DM Sans', sans-serif;
-      background: var(--bg);
-      color: var(--text);
-      min-height: 100vh;
-      overflow-x: hidden;
-    }
- 
-    body::before {
-      content: '';
-      position: fixed;
-      inset: 0;
-      background-image:
-        linear-gradient(rgba(0,229,255,.03) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(0,229,255,.03) 1px, transparent 1px);
-      background-size: 40px 40px;
-      pointer-events: none;
-      z-index: 0;
-    }
- 
-    .orb {
-      position: fixed;
-      border-radius: 50%;
-      filter: blur(100px);
-      pointer-events: none;
-      z-index: 0;
-    }
-    .orb-1 { width: 500px; height: 500px; background: rgba(0,112,243,.12); top: -100px; left: -100px; }
-    .orb-2 { width: 400px; height: 400px; background: rgba(0,229,255,.08); bottom: 100px; right: -100px; }
-    .orb-3 { width: 300px; height: 300px; background: rgba(255,76,106,.06); top: 50%; left: 50%; transform: translate(-50%,-50%); }
- 
-    nav {
-      position: sticky;
-      top: 0;
-      z-index: 100;
-      background: rgba(4,8,15,.85);
-      backdrop-filter: blur(16px);
-      border-bottom: 1px solid var(--border);
-      padding: 0 40px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      height: 60px;
-    }
- 
-    .nav-logo {
-      font-family: 'Syne', sans-serif;
-      font-weight: 800;
-      font-size: 1.2rem;
-      color: var(--accent);
-      letter-spacing: -0.5px;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
- 
-    .nav-logo span { color: var(--text); }
- 
-    .nav-links {
-      display: flex;
-      gap: 32px;
-      list-style: none;
-    }
- 
-    .nav-links a {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: .78rem;
-      color: var(--muted);
-      text-decoration: none;
-      transition: color .2s;
-      letter-spacing: .5px;
-    }
- 
-    .nav-links a:hover { color: var(--accent); }
- 
-    .hero {
-      position: relative;
-      z-index: 1;
-      padding: 100px 40px 80px;
-      max-width: 900px;
-      margin: 0 auto;
-    }
- 
-    .hero-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      font-family: 'JetBrains Mono', monospace;
-      font-size: .72rem;
-      color: var(--accent);
-      background: rgba(0,229,255,.08);
-      border: 1px solid rgba(0,229,255,.2);
-      padding: 5px 14px;
-      border-radius: 999px;
-      margin-bottom: 28px;
-      animation: fadeUp .6s ease both;
-    }
- 
-    .hero-badge::before {
-      content: '';
-      width: 6px; height: 6px;
-      background: var(--accent);
-      border-radius: 50%;
-      animation: pulse 1.4s infinite;
-    }
- 
-    @keyframes pulse {
-      0%,100% { opacity:1; transform:scale(1); }
-      50% { opacity:.4; transform:scale(.7); }
-    }
- 
-    .hero h1 {
-      font-family: 'Syne', sans-serif;
-      font-size: clamp(2.4rem, 6vw, 4.2rem);
-      font-weight: 800;
-      line-height: 1.05;
-      letter-spacing: -2px;
-      color: #fff;
-      margin-bottom: 20px;
-      animation: fadeUp .6s .1s ease both;
-    }
- 
-    .hero h1 em { font-style: normal; color: var(--accent); }
- 
-    .hero p.sub {
-      font-size: 1.05rem;
-      color: var(--muted);
-      max-width: 600px;
-      line-height: 1.7;
-      margin-bottom: 40px;
-      animation: fadeUp .6s .2s ease both;
-    }
- 
-    .hero-cta {
-      display: flex;
-      gap: 14px;
-      flex-wrap: wrap;
-      animation: fadeUp .6s .3s ease both;
-    }
- 
-    .btn-primary {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      background: var(--accent);
-      color: var(--bg);
-      font-family: 'Syne', sans-serif;
-      font-weight: 700;
-      font-size: .9rem;
-      padding: 13px 26px;
-      border-radius: 8px;
-      text-decoration: none;
-      transition: transform .2s, box-shadow .2s;
-      box-shadow: 0 0 30px rgba(0,229,255,.25);
-    }
- 
-    .btn-primary:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 0 50px rgba(0,229,255,.4);
-    }
- 
-    .btn-secondary {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      background: transparent;
-      color: var(--text);
-      font-family: 'Syne', sans-serif;
-      font-weight: 600;
-      font-size: .9rem;
-      padding: 13px 26px;
-      border-radius: 8px;
-      text-decoration: none;
-      border: 1px solid var(--border);
-      transition: border-color .2s, color .2s;
-    }
- 
-    .btn-secondary:hover { border-color: var(--accent); color: var(--accent); }
- 
-    @keyframes fadeUp {
-      from { opacity:0; transform:translateY(20px); }
-      to   { opacity:1; transform:translateY(0); }
-    }
- 
-    .stats-bar {
-      position: relative;
-      z-index: 1;
-      max-width: 900px;
-      margin: 0 auto 60px;
-      padding: 0 40px;
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 1px;
-      background: var(--border);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      overflow: hidden;
-    }
- 
-    .stat {
-      background: var(--surface);
-      padding: 24px 28px;
-      text-align: center;
-    }
- 
-    .stat-num {
-      font-family: 'Syne', sans-serif;
-      font-size: 2rem;
-      font-weight: 800;
-      color: var(--accent);
-    }
- 
-    .stat-label {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: .7rem;
-      color: var(--muted);
-      margin-top: 4px;
-      letter-spacing: .5px;
-    }
- 
-    .content {
-      position: relative;
-      z-index: 1;
-      max-width: 900px;
-      margin: 0 auto;
-      padding: 0 40px 80px;
-      display: flex;
-      flex-direction: column;
-      gap: 32px;
-    }
- 
-    .card {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 16px;
-      padding: 32px;
-      position: relative;
-      overflow: hidden;
-      transition: border-color .3s;
-    }
- 
-    .card:hover { border-color: rgba(0,229,255,.25); }
- 
-    .card::before {
-      content: '';
-      position: absolute;
-      top: 0; left: 0; right: 0;
-      height: 2px;
-      background: linear-gradient(90deg, transparent, var(--accent), transparent);
-      opacity: 0;
-      transition: opacity .3s;
-    }
- 
-    .card:hover::before { opacity: 1; }
- 
-    .card-tag {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: .65rem;
-      color: var(--accent);
-      letter-spacing: 2px;
-      text-transform: uppercase;
-      margin-bottom: 10px;
-    }
- 
-    h2 {
-      font-family: 'Syne', sans-serif;
-      font-size: 1.4rem;
-      font-weight: 700;
-      color: #fff;
-      margin-bottom: 16px;
-    }
- 
-    p { line-height: 1.75; color: var(--text); font-size: .95rem; }
- 
-    .features-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 16px;
-      margin-top: 8px;
-    }
- 
-    .feature-item {
-      background: var(--bg);
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      padding: 18px;
-      transition: border-color .2s, transform .2s;
-    }
- 
-    .feature-item:hover {
-      border-color: rgba(0,229,255,.3);
-      transform: translateY(-3px);
-    }
- 
-    .feature-icon { font-size: 1.5rem; margin-bottom: 10px; }
- 
-    .feature-title {
-      font-family: 'Syne', sans-serif;
-      font-size: .9rem;
-      font-weight: 700;
-      color: #fff;
-      margin-bottom: 6px;
-    }
- 
-    .feature-desc { font-size: .8rem; color: var(--muted); line-height: 1.5; }
- 
-    .attack-grid {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      margin-top: 12px;
-    }
- 
-    .attack-badge {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: .75rem;
-      padding: 6px 14px;
-      border-radius: 6px;
-      border: 1px solid;
-    }
- 
-    .badge-red   { color: var(--danger);  border-color: rgba(255,76,106,.3);  background: rgba(255,76,106,.07); }
-    .badge-blue  { color: var(--accent);  border-color: rgba(0,229,255,.3);   background: rgba(0,229,255,.07); }
-    .badge-green { color: var(--success); border-color: rgba(0,229,176,.3);   background: rgba(0,229,176,.07); }
-    .badge-warn  { color: var(--warning); border-color: rgba(245,166,35,.3);  background: rgba(245,166,35,.07); }
- 
-    .team-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-      gap: 12px;
-      margin-top: 8px;
-    }
- 
-    .member-card {
-      background: var(--bg);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 20px 16px;
-      text-align: center;
-      transition: border-color .2s, transform .2s;
-    }
- 
-    .member-card:hover {
-      border-color: rgba(0,229,255,.3);
-      transform: translateY(-3px);
-    }
- 
-    .member-avatar {
-      width: 50px;
-      height: 50px;
-      background: linear-gradient(135deg, var(--accent2), var(--accent));
-      border-radius: 50%;
-      margin: 0 auto 12px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-family: 'Syne', sans-serif;
-      font-weight: 800;
-      font-size: 1.1rem;
-      color: var(--bg);
-    }
- 
-    .member-name {
-      font-family: 'Syne', sans-serif;
-      font-size: .85rem;
-      font-weight: 700;
-      color: #fff;
-    }
- 
-    .member-role {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: .65rem;
-      color: var(--muted);
-      margin-top: 4px;
-    }
- 
-    .obj-list {
-      list-style: none;
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-      margin-top: 8px;
-    }
- 
-    .obj-list li {
-      display: flex;
-      align-items: flex-start;
-      gap: 12px;
-      padding: 12px 16px;
-      background: var(--bg);
-      border-radius: 8px;
-      border: 1px solid var(--border);
-      font-size: .9rem;
-      line-height: 1.5;
-    }
- 
-    .obj-list li::before {
-      content: '→';
-      color: var(--accent);
-      font-family: 'JetBrains Mono', monospace;
-      flex-shrink: 0;
-      margin-top: 1px;
-    }
- 
-    .tech-stack {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      margin-top: 12px;
-    }
- 
-    .tech-tag {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: .75rem;
-      color: var(--accent2);
-      background: rgba(0,112,243,.1);
-      border: 1px solid rgba(0,112,243,.25);
-      padding: 5px 12px;
-      border-radius: 6px;
-    }
- 
-    footer {
-      position: relative;
-      z-index: 1;
-      border-top: 1px solid var(--border);
-      padding: 32px 40px;
-      text-align: center;
-      background: var(--surface);
-    }
- 
-    .footer-logo {
-      font-family: 'Syne', sans-serif;
-      font-weight: 800;
-      font-size: 1.4rem;
-      color: var(--accent);
-      margin-bottom: 8px;
-    }
- 
-    footer p {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: .72rem;
-      color: var(--muted);
-    }
- 
-    .footer-flag { font-size: 1rem; }
- 
-    @media (max-width: 600px) {
-      nav { padding: 0 20px; }
-      .nav-links { display: none; }
-      .hero, .content { padding-left: 20px; padding-right: 20px; }
-      .stats-bar { margin: 0 20px 40px; grid-template-columns: 1fr; }
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden}
+    body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(rgba(0,229,255,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(0,229,255,.03) 1px,transparent 1px);background-size:40px 40px;pointer-events:none;z-index:0}
+    .orb{position:fixed;border-radius:50%;filter:blur(100px);pointer-events:none;z-index:0}
+    .orb-1{width:500px;height:500px;background:rgba(0,112,243,.12);top:-100px;left:-100px}
+    .orb-2{width:400px;height:400px;background:rgba(0,229,255,.08);bottom:100px;right:-100px}
+    .orb-3{width:300px;height:300px;background:rgba(255,76,106,.06);top:50%;left:50%;transform:translate(-50%,-50%)}
+    nav{position:sticky;top:0;z-index:100;background:rgba(4,8,15,.85);backdrop-filter:blur(16px);border-bottom:1px solid var(--border);padding:0 40px;display:flex;align-items:center;justify-content:space-between;height:60px}
+    .nav-logo{font-family:'Syne',sans-serif;font-weight:800;font-size:1.2rem;color:var(--accent);letter-spacing:-.5px;display:flex;align-items:center;gap:8px}
+    .nav-logo span{color:var(--text)}
+    .nav-links{display:flex;gap:28px;list-style:none}
+    .nav-links a{font-family:'JetBrains Mono',monospace;font-size:.75rem;color:var(--muted);text-decoration:none;transition:color .2s;letter-spacing:.5px}
+    .nav-links a:hover{color:var(--accent)}
+    .hero{position:relative;z-index:1;padding:100px 40px 80px;max-width:900px;margin:0 auto}
+    .hero-badge{display:inline-flex;align-items:center;gap:6px;font-family:'JetBrains Mono',monospace;font-size:.72rem;color:var(--accent);background:rgba(0,229,255,.08);border:1px solid rgba(0,229,255,.2);padding:5px 14px;border-radius:999px;margin-bottom:28px;animation:fadeUp .6s ease both}
+    .hero-badge::before{content:'';width:6px;height:6px;background:var(--accent);border-radius:50%;animation:pulse 1.4s infinite}
+    @keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(.7)}}
+    .hero h1{font-family:'Syne',sans-serif;font-size:clamp(2.4rem,6vw,4.2rem);font-weight:800;line-height:1.05;letter-spacing:-2px;color:#fff;margin-bottom:20px;animation:fadeUp .6s .1s ease both}
+    .hero h1 em{font-style:normal;color:var(--accent)}
+    .hero p.sub{font-size:1.05rem;color:var(--muted);max-width:600px;line-height:1.7;margin-bottom:40px;animation:fadeUp .6s .2s ease both}
+    .hero-cta{display:flex;gap:14px;flex-wrap:wrap;animation:fadeUp .6s .3s ease both}
+    .btn-primary{display:inline-flex;align-items:center;gap:8px;background:var(--accent);color:var(--bg);font-family:'Syne',sans-serif;font-weight:700;font-size:.9rem;padding:13px 26px;border-radius:8px;text-decoration:none;transition:transform .2s,box-shadow .2s;box-shadow:0 0 30px rgba(0,229,255,.25)}
+    .btn-primary:hover{transform:translateY(-2px);box-shadow:0 0 50px rgba(0,229,255,.4)}
+    .btn-secondary{display:inline-flex;align-items:center;gap:8px;background:transparent;color:var(--text);font-family:'Syne',sans-serif;font-weight:600;font-size:.9rem;padding:13px 26px;border-radius:8px;text-decoration:none;border:1px solid var(--border);transition:border-color .2s,color .2s}
+    .btn-secondary:hover{border-color:var(--accent);color:var(--accent)}
+    @keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+    .stats-bar{position:relative;z-index:1;max-width:900px;margin:0 auto 60px;padding:0 40px;display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);border:1px solid var(--border);border-radius:12px;overflow:hidden}
+    .stat{background:var(--surface);padding:24px 28px;text-align:center}
+    .stat-num{font-family:'Syne',sans-serif;font-size:2rem;font-weight:800;color:var(--accent)}
+    .stat-label{font-family:'JetBrains Mono',monospace;font-size:.7rem;color:var(--muted);margin-top:4px;letter-spacing:.5px}
+    .content{position:relative;z-index:1;max-width:900px;margin:0 auto;padding:0 40px 40px;display:flex;flex-direction:column;gap:32px}
+    .card{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:32px;position:relative;overflow:hidden;transition:border-color .3s}
+    .card:hover{border-color:rgba(0,229,255,.25)}
+    .card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--accent),transparent);opacity:0;transition:opacity .3s}
+    .card:hover::before{opacity:1}
+    .card-tag{font-family:'JetBrains Mono',monospace;font-size:.65rem;color:var(--accent);letter-spacing:2px;text-transform:uppercase;margin-bottom:10px}
+    h2{font-family:'Syne',sans-serif;font-size:1.4rem;font-weight:700;color:#fff;margin-bottom:16px}
+    p{line-height:1.75;color:var(--text);font-size:.95rem}
+    .features-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:16px;margin-top:8px}
+    .feature-item{background:var(--bg);border:1px solid var(--border);border-radius:10px;padding:18px;transition:border-color .2s,transform .2s}
+    .feature-item:hover{border-color:rgba(0,229,255,.3);transform:translateY(-3px)}
+    .feature-icon{font-size:1.5rem;margin-bottom:10px}
+    .feature-title{font-family:'Syne',sans-serif;font-size:.9rem;font-weight:700;color:#fff;margin-bottom:6px}
+    .feature-desc{font-size:.8rem;color:var(--muted);line-height:1.5}
+    .attack-grid{display:flex;flex-wrap:wrap;gap:10px;margin-top:12px}
+    .attack-badge{font-family:'JetBrains Mono',monospace;font-size:.75rem;padding:6px 14px;border-radius:6px;border:1px solid}
+    .badge-red{color:var(--danger);border-color:rgba(255,76,106,.3);background:rgba(255,76,106,.07)}
+    .badge-blue{color:var(--accent);border-color:rgba(0,229,255,.3);background:rgba(0,229,255,.07)}
+    .badge-green{color:var(--success);border-color:rgba(0,229,176,.3);background:rgba(0,229,176,.07)}
+    .badge-warn{color:var(--warning);border-color:rgba(245,166,35,.3);background:rgba(245,166,35,.07)}
+    .badge-purple{color:#bf7fff;border-color:rgba(191,127,255,.3);background:rgba(191,127,255,.07)}
+    .team-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px;margin-top:8px}
+    .member-card{background:var(--bg);border:1px solid var(--border);border-radius:12px;padding:20px 16px;text-align:center;transition:border-color .2s,transform .2s}
+    .member-card:hover{border-color:rgba(0,229,255,.3);transform:translateY(-3px)}
+    .member-avatar{width:50px;height:50px;background:linear-gradient(135deg,var(--accent2),var(--accent));border-radius:50%;margin:0 auto 12px;display:flex;align-items:center;justify-content:center;font-family:'Syne',sans-serif;font-weight:800;font-size:1.1rem;color:var(--bg)}
+    .member-name{font-family:'Syne',sans-serif;font-size:.85rem;font-weight:700;color:#fff}
+    .member-role{font-family:'JetBrains Mono',monospace;font-size:.65rem;color:var(--muted);margin-top:4px}
+    .obj-list{list-style:none;display:flex;flex-direction:column;gap:10px;margin-top:8px}
+    .obj-list li{display:flex;align-items:flex-start;gap:12px;padding:12px 16px;background:var(--bg);border-radius:8px;border:1px solid var(--border);font-size:.9rem;line-height:1.5}
+    .obj-list li::before{content:'→';color:var(--accent);font-family:'JetBrains Mono',monospace;flex-shrink:0;margin-top:1px}
+    .obj-list li.hw::before{content:'⚡';color:var(--warning)}
+    .tech-stack{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+    .tech-tag{font-family:'JetBrains Mono',monospace;font-size:.75rem;color:var(--accent2);background:rgba(0,112,243,.1);border:1px solid rgba(0,112,243,.25);padding:5px 12px;border-radius:6px}
+
+    /* ══════════════════════════════
+       LED BLINKING SECTION
+    ══════════════════════════════ */
+    .port-note{display:flex;align-items:center;gap:12px;background:rgba(245,166,35,.07);border:1px solid rgba(245,166,35,.3);border-radius:10px;padding:14px 18px;margin-bottom:24px;font-family:'JetBrains Mono',monospace;font-size:.8rem;color:var(--warning);line-height:1.5}
+    .led-behavior{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:32px}
+    .led-item{background:var(--bg);border:1px solid var(--border);border-radius:12px;padding:20px;display:flex;align-items:center;gap:14px}
+    .led-dot{width:22px;height:22px;border-radius:50%;flex-shrink:0}
+    .led-dot.white{background:#fff;animation:blinkWhite 1.2s ease-in-out infinite}
+    .led-dot.red{background:var(--danger);animation:blinkRed .5s ease-in-out infinite}
+    @keyframes blinkWhite{0%,100%{opacity:1;box-shadow:0 0 18px 6px rgba(255,255,255,.7)}50%{opacity:.05;box-shadow:none}}
+    @keyframes blinkRed{0%,100%{opacity:1;box-shadow:0 0 18px 6px rgba(255,76,106,.8)}50%{opacity:.05;box-shadow:none}}
+    .led-info-title{font-family:'Syne',sans-serif;font-size:.9rem;font-weight:700;color:#fff;margin-bottom:4px}
+    .led-info-desc{font-size:.78rem;color:var(--muted);line-height:1.4}
+
+    /* ══════════════════════════════
+       TINKERCAD 3D PARTS
+    ══════════════════════════════ */
+    .parts-subtitle{font-family:'JetBrains Mono',monospace;font-size:.68rem;color:var(--accent);letter-spacing:2px;text-transform:uppercase;margin-bottom:14px;margin-top:28px}
+    .parts-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:20px}
+    .part-card{background:#080f1e;border:1px solid #1e2d45;border-radius:14px;padding:6px 6px 12px;text-align:center;cursor:pointer;transition:border-color .25s,transform .25s,box-shadow .25s;position:relative}
+    .part-card:hover{border-color:rgba(0,229,255,.6);transform:translateY(-6px) scale(1.03);box-shadow:0 16px 40px rgba(0,229,255,.15)}
+    .part-canvas-wrap{width:100%;height:130px;position:relative;overflow:hidden;border-radius:8px;background:#060d1a}
+    .part-canvas-wrap canvas{width:100%;height:100%;display:block}
+    .part-name{font-family:'Syne',sans-serif;font-size:.82rem;font-weight:700;color:#fff;margin-top:8px}
+    .part-chip{font-size:.65rem;color:var(--muted);margin-top:2px;font-family:'JetBrains Mono',monospace}
+
+    /* Combine button */
+    .combine-btn{display:block;width:100%;padding:15px;background:linear-gradient(90deg,#0070f3,#00e5ff);color:#04080f;font-family:'Syne',sans-serif;font-weight:800;font-size:1rem;border:none;border-radius:10px;cursor:pointer;transition:transform .2s,box-shadow .2s;box-shadow:0 0 30px rgba(0,229,255,.2);letter-spacing:.5px;margin-bottom:20px}
+    .combine-btn:hover{transform:translateY(-2px);box-shadow:0 0 50px rgba(0,229,255,.4)}
+    .combine-btn:disabled{opacity:.6;cursor:not-allowed;transform:none}
+
+    /* Combined view */
+    .combined-wrap{display:none;border-radius:14px;overflow:hidden;border:1px solid var(--accent);background:#04080f;position:relative}
+    .combined-wrap.visible{display:block;animation:fadeUp .4s ease}
+    .combined-wrap canvas{width:100%;height:340px;display:block;cursor:grab}
+    .combined-wrap canvas:active{cursor:grabbing}
+    .combined-toolbar{display:flex;align-items:center;justify-content:space-between;padding:10px 16px;border-top:1px solid var(--border);background:var(--surface)}
+    .combined-label{font-family:'JetBrains Mono',monospace;font-size:.68rem;color:var(--accent);letter-spacing:1px}
+    .fullscreen-btn{font-family:'JetBrains Mono',monospace;font-size:.72rem;color:var(--text);background:rgba(255,255,255,.06);border:1px solid var(--border);padding:5px 14px;border-radius:6px;cursor:pointer;transition:border-color .2s,color .2s}
+    .fullscreen-btn:hover{border-color:var(--accent);color:var(--accent)}
+
+    /* Fullscreen overlay */
+    .fs-overlay{display:none;position:fixed;inset:0;z-index:9999;background:#04080f;flex-direction:column}
+    .fs-overlay.open{display:flex}
+    .fs-header{height:52px;background:rgba(4,8,15,.9);border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;padding:0 24px;backdrop-filter:blur(12px)}
+    .fs-title{font-family:'JetBrains Mono',monospace;font-size:.8rem;color:var(--accent);letter-spacing:1px}
+    .fs-close{font-family:'JetBrains Mono',monospace;font-size:.75rem;color:var(--muted);background:rgba(255,255,255,.06);border:1px solid var(--border);padding:6px 16px;border-radius:6px;cursor:pointer;transition:color .2s,border-color .2s}
+    .fs-close:hover{color:var(--danger);border-color:var(--danger)}
+    .fs-hint{font-family:'JetBrains Mono',monospace;font-size:.68rem;color:var(--muted);padding:0 24px}
+    #fs-canvas{flex:1;width:100%;display:block;cursor:grab}
+    #fs-canvas:active{cursor:grabbing}
+
+    footer{position:relative;z-index:1;border-top:1px solid var(--border);padding:32px 40px;text-align:center;background:var(--surface)}
+    .footer-logo{font-family:'Syne',sans-serif;font-weight:800;font-size:1.4rem;color:var(--accent);margin-bottom:8px}
+    footer p{font-family:'JetBrains Mono',monospace;font-size:.72rem;color:var(--muted)}
+    @media(max-width:640px){
+      nav{padding:0 20px}.nav-links{display:none}
+      .hero,.content{padding-left:20px;padding-right:20px}
+      .stats-bar{margin:0 20px 40px;grid-template-columns:1fr}
+      .led-behavior{grid-template-columns:1fr}
+      .parts-grid{grid-template-columns:repeat(2,1fr)}
     }
   </style>
 </head>
- 
 <body>
- 
-<div class="orb orb-1"></div>
-<div class="orb orb-2"></div>
-<div class="orb orb-3"></div>
- 
+<div class="orb orb-1"></div><div class="orb orb-2"></div><div class="orb orb-3"></div>
+
 <!-- NAV -->
 <nav>
   <div class="nav-logo">⬡ <span>Net</span>Guard</div>
   <ul class="nav-links">
     <li><a href="#about">About</a></li>
     <li><a href="#features">Features</a></li>
+    <li><a href="#led">LED Setup</a></li>
     <li><a href="#team">Team</a></li>
-    <li><a href="https://drive.google.com/file/d/1LPXW7zcFDqqa4QwA5j13S9UDPCOX98Lx/view?usp=sharing" target="_blank">Download</a></li>
+    <li><a href="https://drive.google.com/file/d/1bkBnSMSbK86i2HqAVlPiYTCJ64-7d_no/view?usp=sharing" target="_blank">Download</a></li>
   </ul>
 </nav>
- 
+
 <!-- HERO -->
-<section class="hero" id="about" aria-label="Hero section">
-  <div class="hero-badge">Network IDS/IPS · 2026</div>
- 
+<section class="hero" id="about">
+  <div class="hero-badge">Network IDS/IPS · Hardware + Software · 2026</div>
   <h1>Network <em>Intrusion</em><br/>Detection &amp; Prevention system</h1>
- 
-  <p class="sub">
-    NetGuard is a real-time IDS/IPS system that monitors network traffic, identifies malicious patterns,
-    and automatically blocks threats — built to simulate enterprise-grade cybersecurity infrastructure.
-  </p>
- 
+  <p class="sub">NetGuard is a real-time IDS/IPS system that monitors network traffic, identifies malicious patterns, and automatically blocks threats — with physical LED indicators powered by Arduino for real-world feedback.</p>
   <div class="hero-cta">
-    <a href="https://drive.google.com/file/d/1LPXW7zcFDqqa4QwA5j13S9UDPCOX98Lx/view?usp=sharing" target="_blank" class="btn-primary">
-      ⬇ Download NetGuard
-    </a>
-    <a href="#features" class="btn-secondary">
-      ↓ See Features
-    </a>
+    <a href="https://drive.google.com/file/d/1bkBnSMSbK86i2HqAVlPiYTCJ64-7d_no/view?usp=sharing" target="_blank" class="btn-primary">⬇ Download NetGuard 2026</a>
+    <a href="#features" class="btn-secondary">↓ See Features</a>
   </div>
 </section>
- 
+
 <!-- STATS -->
-<div class="stats-bar" aria-label="Project statistics">
-  <div class="stat">
-    <div class="stat-num">4+</div>
-    <div class="stat-label">ATTACK TYPES DETECTED</div>
-  </div>
-  <div class="stat">
-    <div class="stat-num">Real-Time</div>
-    <div class="stat-label">TRAFFIC MONITORING</div>
-  </div>
-  <div class="stat">
-    <div class="stat-num">AI</div>
-    <div class="stat-label">POWERED ANALYSIS</div>
-  </div>
+<div class="stats-bar">
+  <div class="stat"><div class="stat-num">4+</div><div class="stat-label">ATTACK TYPES DETECTED</div></div>
+  <div class="stat"><div class="stat-num">Real-Time</div><div class="stat-label">TRAFFIC MONITORING</div></div>
+  <div class="stat"><div class="stat-num">AI + HW</div><div class="stat-label">SOFTWARE & HARDWARE</div></div>
 </div>
- 
-<!-- MAIN CONTENT -->
+
 <main class="content">
- 
+
+  <!-- OVERVIEW -->
   <article class="card" id="description">
     <div class="card-tag">// Overview</div>
     <h2>What is NetGuard?</h2>
-    <p>
-      NetGuard IDS/IPS is a network security solution designed to monitor, analyze, and protect computer networks
-      from unauthorized access and malicious activities in real time. The system integrates both
-      <strong>Intrusion Detection</strong> and <strong>Intrusion Prevention</strong> capabilities,
-      using signature-based and anomaly-based detection techniques to identify potential threats.
-      It is built to simulate enterprise-level cybersecurity environments, improving network visibility,
-      threat response time, and ensuring the CIA triad — confidentiality, integrity, and availability.
-    </p>
-    <div class="tech-stack" style="margin-top:20px;">
-      <span class="tech-tag">Python</span>
-      <span class="tech-tag">PyQt5</span>
-      <span class="tech-tag">Flask / SocketIO</span>
-      <span class="tech-tag">Scapy / Npcap</span>
-      <span class="tech-tag">Groq AI (LLaMA 3.3 70B)</span>
-      <span class="tech-tag">PyQtGraph</span>
-      <span class="tech-tag">Leaflet.js</span>
-      <span class="tech-tag">Windows Firewall (netsh)</span>
+    <p>NetGuard IDS/IPS is a network security solution designed to monitor, analyze, and protect computer networks from unauthorized access and malicious activities in real time. The system integrates both <strong>Intrusion Detection</strong> and <strong>Intrusion Prevention</strong> capabilities, using signature-based and anomaly-based detection techniques. It also features a <strong>physical Arduino-based LED circuit</strong> that gives real-world visual feedback — a white LED blinks during monitoring and a red LED blinks on attack detection.</p>
+    <div class="tech-stack" style="margin-top:20px">
+      <span class="tech-tag">Python</span><span class="tech-tag">PyQt5</span><span class="tech-tag">Flask / SocketIO</span>
+      <span class="tech-tag">Scapy / Npcap</span><span class="tech-tag">Groq AI (LLaMA 3.3 70B)</span>
+      <span class="tech-tag">PyQtGraph</span><span class="tech-tag">Leaflet.js</span>
+      <span class="tech-tag">Windows Firewall (netsh)</span><span class="tech-tag">Arduino Uno</span>
     </div>
   </article>
- 
+
+  <!-- ATTACKS -->
   <article class="card">
     <div class="card-tag">// Threat Detection</div>
     <h2>Attacks NetGuard Detects &amp; Blocks</h2>
@@ -611,47 +216,475 @@
       <span class="attack-badge badge-blue">Malicious IP Blocking</span>
     </div>
   </article>
- 
+
+  <!-- KEY FEATURES — updated to include LED -->
   <article class="card" id="features">
     <div class="card-tag">// Capabilities</div>
     <h2>Key Features</h2>
     <div class="features-grid">
-      <div class="feature-item">
-        <div class="feature-icon">📡</div>
-        <div class="feature-title">Live Traffic Monitor</div>
-        <div class="feature-desc">Real-time packet capture and visualization with PyQtGraph charts.</div>
-      </div>
-      <div class="feature-item">
-        <div class="feature-icon">🤖</div>
-        <div class="feature-title">AI Chatbot Assistant</div>
-        <div class="feature-desc">Powered by LLaMA 3.3 70B via Groq for intelligent threat analysis.</div>
-      </div>
-      <div class="feature-item">
-        <div class="feature-icon">🛡️</div>
-        <div class="feature-title">Auto IP Blocking</div>
-        <div class="feature-desc">Malicious IPs are blocked instantly using Windows Firewall rules.</div>
-      </div>
-      <div class="feature-item">
-        <div class="feature-icon">🗺️</div>
-        <div class="feature-title">Dark Map View</div>
-        <div class="feature-desc">Geo-IP tracking of threats with a Leaflet.js dark-themed map.</div>
-      </div>
-      <div class="feature-item">
-        <div class="feature-icon">📧</div>
-        <div class="feature-title">Email Alerts</div>
-        <div class="feature-desc">Instant notifications when threats are detected on your network.</div>
-      </div>
-      <div class="feature-item">
-        <div class="feature-icon">🌐</div>
-        <div class="feature-title">Web Dashboard</div>
-        <div class="feature-desc">Flask-powered dashboard accessible from any browser on your network.</div>
-      </div>
+      <div class="feature-item"><div class="feature-icon">📡</div><div class="feature-title">Live Traffic Monitor</div><div class="feature-desc">Real-time packet capture and visualization with PyQtGraph charts.</div></div>
+      <div class="feature-item"><div class="feature-icon">🤖</div><div class="feature-title">AI Chatbot Assistant</div><div class="feature-desc">Powered by LLaMA 3.3 70B via Groq for intelligent threat analysis and explanation.</div></div>
+      <div class="feature-item"><div class="feature-icon">🛡️</div><div class="feature-title">Auto IP Blocking</div><div class="feature-desc">Malicious IPs are blocked instantly using Windows Firewall rules via netsh.</div></div>
+      <div class="feature-item"><div class="feature-icon">🗺️</div><div class="feature-title">Dark Map View</div><div class="feature-desc">Geo-IP tracking of attack origins with a Leaflet.js dark-themed interactive map.</div></div>
+      <div class="feature-item"><div class="feature-icon">📧</div><div class="feature-title">Email Alerts</div><div class="feature-desc">Instant Gmail notifications the moment a threat is detected on your network.</div></div>
+      <div class="feature-item"><div class="feature-icon">🌐</div><div class="feature-title">Web Dashboard</div><div class="feature-desc">Flask-powered dashboard accessible from any browser on your local network.</div></div>
+      <div class="feature-item" style="border-color:rgba(245,166,35,.3)"><div class="feature-icon">💡</div><div class="feature-title">LED Hardware Indicator</div><div class="feature-desc">Arduino-based circuit: white LED blinks during monitoring, red LED blinks on attack detection — real physical feedback.</div></div>
+      <div class="feature-item" style="border-color:rgba(245,166,35,.3)"><div class="feature-icon">🔌</div><div class="feature-title">Serial Communication</div><div class="feature-desc">Python communicates with Arduino via USB Port 3 to trigger LED states in real time.</div></div>
     </div>
   </article>
- 
+
+  <!-- PROJECT GOALS — updated with LED goals -->
   <article class="card">
     <div class="card-tag">// Objectives</div>
     <h2>Project Goals</h2>
+    <ul class="obj-list">
+      <li>Monitor network traffic in real time with zero manual intervention</li>
+      <li>Detect suspicious activities, DDoS attempts, and unauthorized port scans</li>
+      <li>Simulate IDS/IPS behavior in a controlled enterprise-level environment</li>
+      <li>Improve cybersecurity awareness through AI-powered threat explanations</li>
+      <li>Provide actionable alerts and automated IP blocking to minimize damage</li>
+      <li class="hw">Integrate physical LED indicators via Arduino to provide real-world, screen-free network status feedback</li>
+      <li class="hw">Use white LED blinking as a live "system active" signal when monitoring starts</li>
+      <li class="hw">Use red LED blinking as an immediate hardware-level alert when any attack is detected</li>
+      <li class="hw">Bridge software and hardware layers through Python serial communication to Arduino Uno</li>
+    </ul>
+  </article>
+
+</main>
+
+<!-- ══ LED BLINKING SECTION — before team ══ -->
+<section style="position:relative;z-index:1;max-width:900px;margin:0 auto;padding:0 40px 32px" id="led">
+  <div class="card" style="overflow:visible">
+    <div class="card-tag">// Hardware Integration</div>
+    <h2>💡 LED Blinking Indicator</h2>
+    <p style="margin-bottom:20px">NetGuard bridges software and hardware — an Arduino circuit provides a physical, real-world signal of your network's status so you always know what's happening, even without looking at the screen.</p>
+
+    <div class="port-note">
+      ⚠️ &nbsp;<strong>Important:</strong> Connect the Arduino to <strong>USB Port 3</strong> on your laptop or PC. NetGuard's serial communication is configured specifically for COM3 (Port 3) to send LED control signals to the Arduino.
+    </div>
+
+    <div class="led-behavior">
+      <div class="led-item">
+        <div class="led-dot white"></div>
+        <div>
+          <div class="led-info-title">White LED — Monitoring Active</div>
+          <div class="led-info-desc">Blinks steadily when you press "Start Monitoring". Signals the system is live and actively scanning all network traffic.</div>
+        </div>
+      </div>
+      <div class="led-item">
+        <div class="led-dot red"></div>
+        <div>
+          <div class="led-info-title">Red LED — Attack Detected!</div>
+          <div class="led-info-desc">Blinks rapidly the moment a threat is identified — SYN flood, port scan, UDP flood, or any malicious pattern.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="parts-subtitle">// Circuit Components — Tinkercad Style · Hover to Inspect · Click Combine to Animate</div>
+    <div class="parts-grid">
+      <div class="part-card" id="pc-arduino"><div class="part-canvas-wrap"><canvas id="c-arduino"></canvas></div><div class="part-name">Arduino Uno</div><div class="part-chip">ATmega328P</div></div>
+      <div class="part-card" id="pc-breadboard"><div class="part-canvas-wrap"><canvas id="c-breadboard"></canvas></div><div class="part-name">Breadboard</div><div class="part-chip">830-point</div></div>
+      <div class="part-card" id="pc-led-white"><div class="part-canvas-wrap"><canvas id="c-led-white"></canvas></div><div class="part-name">White LED</div><div class="part-chip">Monitoring indicator</div></div>
+      <div class="part-card" id="pc-led-red"><div class="part-canvas-wrap"><canvas id="c-led-red"></canvas></div><div class="part-name">Red LED</div><div class="part-chip">Attack indicator</div></div>
+      <div class="part-card" id="pc-resistor"><div class="part-canvas-wrap"><canvas id="c-resistor"></canvas></div><div class="part-name">Resistor</div><div class="part-chip">220Ω × 2</div></div>
+      <div class="part-card" id="pc-button"><div class="part-canvas-wrap"><canvas id="c-button"></canvas></div><div class="part-name">Push Button</div><div class="part-chip">Tactile switch</div></div>
+    </div>
+
+    <button class="combine-btn" id="combine-btn" onclick="startCombineAnimation()">⚡ Combine Them — Animate Circuit Assembly</button>
+
+    <div class="combined-wrap" id="combined-wrap">
+      <canvas id="c-combined"></canvas>
+      <div class="combined-toolbar">
+        <span class="combined-label">// DRAG TO ROTATE · SCROLL TO ZOOM · FULL CIRCUIT ASSEMBLED</span>
+        <button class="fullscreen-btn" onclick="openFullscreen()">⛶ Fullscreen</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TEAM — after LED section -->
+<div style="position:relative;z-index:1;max-width:900px;margin:0 auto;padding:0 40px 80px">
+  <article class="card" id="team">
+    <div class="card-tag">// The Team</div>
+    <h2>Meet the Developers</h2>
+    <p style="margin-bottom:20px;color:var(--muted);font-size:.85rem">Electronics &amp; Communication Engineering Department · Class of 2026</p>
+    <div class="team-grid">
+      <div class="member-card"><div class="member-avatar">MA</div><div class="member-name">Marwan Abdelgawad</div><div class="member-role">// TEAM LEADER</div></div>
+      <div class="member-card"><div class="member-avatar">AA</div><div class="member-name">Ahmed Ashraf</div><div class="member-role">// TEAM MEMBER</div></div>
+      <div class="member-card"><div class="member-avatar">MH</div><div class="member-name">Mahmoud Hosny</div><div class="member-role">// TEAM MEMBER</div></div>
+      <div class="member-card"><div class="member-avatar">AM</div><div class="member-name">Ashraf Mohamed</div><div class="member-role">// TEAM MEMBER</div></div>
+      <div class="member-card"><div class="member-avatar">AS</div><div class="member-name">Abdallah Sameer</div><div class="member-role">// TEAM MEMBER</div></div>
+    </div>
+  </article>
+</div>
+
+<!-- FULLSCREEN OVERLAY -->
+<div class="fs-overlay" id="fs-overlay">
+  <div class="fs-header">
+    <span class="fs-title">// NETGUARD CIRCUIT — FULLSCREEN VIEW</span>
+    <span class="fs-hint">🖱 Drag to rotate · Scroll to zoom</span>
+    <button class="fs-close" onclick="closeFullscreen()">✕ Close</button>
+  </div>
+  <canvas id="fs-canvas"></canvas>
+</div>
+
+<footer>
+  <div class="footer-logo">NetGuard</div>
+  <p>© 2026 NetGuard IDS/IPS Project · All Rights Reserved</p>
+  <p style="margin-top:6px">Made in Egypt 🇪🇬 · Electronics &amp; Communication Engineering</p>
+</footer>
+
+<script>
+const DPR = window.devicePixelRatio || 1;
+
+// ═══════════════════════════════
+// ISO BOX HELPER
+// ═══════════════════════════════
+function iso(x,y,z){ return { sx:(x-y)*Math.cos(Math.PI/6), sy:(x+y)*Math.sin(Math.PI/6)-z }; }
+
+function isoBox(ctx,ox,oy,x,y,z,w,d,h,tc,lc,rc,alpha=1){
+  const p=(n,f)=>{const v=parseInt(n.replace('#','').slice(0,2),16);return Math.min(255,Math.round(v*f));};
+  function adj(hex,f){if(!hex||hex==='transparent')return hex;const r=parseInt(hex.slice(1,3),16),g=parseInt(hex.slice(3,5),16),b=parseInt(hex.slice(5,7),16);return `rgba(${Math.round(r*f)},${Math.round(g*f)},${Math.round(b*f)},${alpha})`;}
+  const faces=[
+    {pts:[[x,y,z+h],[x+w,y,z+h],[x+w,y+d,z+h],[x,y+d,z+h]],c:tc},
+    {pts:[[x,y,z+h],[x,y,z],[x,y+d,z],[x,y+d,z+h]],c:adj(lc,1)},
+    {pts:[[x+w,y,z+h],[x+w,y,z],[x,y,z],[x,y,z+h]],c:adj(rc,1)},
+  ];
+  // right side
+  ctx.save();ctx.globalAlpha=alpha;
+  faces.forEach(({pts,c})=>{
+    ctx.beginPath();
+    pts.forEach(([px,py,pz],i)=>{const s=iso(px,py,pz);i===0?ctx.moveTo(ox+s.sx,oy+s.sy):ctx.lineTo(ox+s.sx,oy+s.sy);});
+    ctx.closePath();ctx.fillStyle=c;ctx.fill();
+    ctx.strokeStyle='rgba(0,0,0,0.2)';ctx.lineWidth=0.4;ctx.stroke();
+  });
+  ctx.restore();
+}
+
+// ═══════════════════════════════
+// PART DRAWERS
+// ═══════════════════════════════
+function drawArduino(ctx,w,h){
+  ctx.clearRect(0,0,w,h);const ox=w/2,oy=h/2+8;
+  isoBox(ctx,ox,oy,-28,-18,0,56,36,3,'#1e8a45','#167a38','#0f6028');
+  isoBox(ctx,ox,oy,-32,-6,2,6,12,5,'#aaaaaa','#888','#666');
+  isoBox(ctx,ox,oy,-8,-8,3,16,14,3,'#111','#0a0a0a','#080808');
+  for(let i=0;i<5;i++){isoBox(ctx,ox,oy,-20+i*9,-22,1,4,3,2,'#d4aa00','#b08800','#806600');}
+  for(let i=0;i<5;i++){isoBox(ctx,ox,oy,-20+i*9,18,1,4,3,2,'#d4aa00','#b08800','#806600');}
+  ctx.save();const lp=iso(-16,-15,4);ctx.beginPath();ctx.arc(ox+lp.sx,oy+lp.sy,3.5,0,Math.PI*2);ctx.fillStyle='#00ff88';ctx.shadowColor='#00ff88';ctx.shadowBlur=10;ctx.fill();ctx.restore();
+  ctx.save();const lp2=iso(-6,-1,4);ctx.fillStyle='rgba(255,255,255,0.2)';ctx.font='bold 5px monospace';ctx.fillText('UNO',ox+lp2.sx-6,oy+lp2.sy+2);ctx.restore();
+}
+
+function drawBreadboard(ctx,w,h){
+  ctx.clearRect(0,0,w,h);const ox=w/2,oy=h/2+12;
+  isoBox(ctx,ox,oy,-36,-22,0,72,44,4,'#e8dfc8','#c8b898','#a89068');
+  isoBox(ctx,ox,oy,-34,-20,4,68,5,2,'#dd2020','#aa1818','#881010');
+  isoBox(ctx,ox,oy,-34,15,4,68,5,2,'#1a5cc8','#1448a0','#0e3880');
+  for(let r=0;r<4;r++)for(let c=0;c<9;c++){const hp=iso(-28+c*7,-9+r*7,5);ctx.beginPath();ctx.arc(ox+hp.sx,oy+hp.sy,1.8,0,Math.PI*2);ctx.fillStyle='#8a7a60';ctx.fill();}
+}
+
+function drawLED(ctx,w,h,col,glow){
+  ctx.clearRect(0,0,w,h);const ox=w/2,oy=h/2+18;
+  isoBox(ctx,ox,oy,-1.5,-1.5,-24,3,3,24,'#c8a000','#a07800','#806000');
+  isoBox(ctx,ox,oy,2,-1.5,-20,3,3,20,'#c8a000','#a07800','#806000');
+  for(let i=0;i<8;i++){
+    const f=Math.sin((i/7)*Math.PI);const s=7*f,bh=4;
+    const r=parseInt(col.slice(1,3),16),g=parseInt(col.slice(3,5),16),b=parseInt(col.slice(5,7),16);
+    const top=`rgb(${Math.min(255,Math.round(r*1.3))},${Math.min(255,Math.round(g*1.3))},${Math.min(255,Math.round(b*1.3))})`;
+    const left=`rgb(${Math.round(r*.8)},${Math.round(g*.8)},${Math.round(b*.8)})`;
+    isoBox(ctx,ox,oy,-s/2,-s/2,i*3.5,s,s,bh,top,left,col);
+  }
+  ctx.save();const gp=iso(0,0,30);ctx.beginPath();ctx.arc(ox+gp.sx,oy+gp.sy,14,0,Math.PI*2);ctx.fillStyle=glow;ctx.globalAlpha=.18;ctx.shadowColor=glow;ctx.shadowBlur=24;ctx.fill();ctx.restore();
+}
+
+function drawResistor(ctx,w,h){
+  ctx.clearRect(0,0,w,h);const ox=w/2,oy=h/2+2;
+  isoBox(ctx,ox,oy,-28,-1.5,0,12,3,2,'#c8a000','#a07800','#806000');
+  isoBox(ctx,ox,oy,16,-1.5,0,12,3,2,'#c8a000','#a07800','#806000');
+  isoBox(ctx,ox,oy,-16,-5,0,32,10,6,'#d4a060','#b08040','#806020');
+  [['#cc2010','#991508','#771006'],['#111','#0a0a0a','#080808'],['#c8a000','#a07800','#806000'],['#d0c000','#a89800','#807200']].forEach(([t,l,r],i)=>{isoBox(ctx,ox,oy,-10+i*6,-5,6,4,10,2,t,l,r);});
+  ctx.save();const lp=iso(0,-14,5);ctx.fillStyle='rgba(255,255,255,0.55)';ctx.font='bold 8px JetBrains Mono';ctx.fillText('220Ω',ox+lp.sx-14,oy+lp.sy);ctx.restore();
+}
+
+function drawButton(ctx,w,h){
+  ctx.clearRect(0,0,w,h);const ox=w/2,oy=h/2+8;
+  isoBox(ctx,ox,oy,-14,-14,0,28,28,3,'#1e8a45','#167a38','#0f6028');
+  isoBox(ctx,ox,oy,-10,-10,3,20,20,6,'#252525','#181818','#101010');
+  isoBox(ctx,ox,oy,-7,-7,9,14,14,5,'#cc1818','#991010','#770c0c');
+  ctx.save();const sh=iso(-3,-3,15);ctx.beginPath();ctx.arc(ox+sh.sx,oy+sh.sy,3,0,Math.PI*2);ctx.fillStyle='rgba(255,255,255,.4)';ctx.fill();ctx.restore();
+  [[-11,-11],[8,-11],[-11,8],[8,8]].forEach(([px,py])=>isoBox(ctx,ox,oy,px,py,-3,3,3,3,'#d4aa00','#b08800','#806600'));
+}
+
+// ═══════════════════════════════
+// COMBINED CIRCUIT SCENE
+// ═══════════════════════════════
+let scene = {
+  rotY: 0.4, rotX: 0.2, zoom: 1,
+  dragging: false, lastX: 0, lastY: 0,
+  assembleT: 0, assembling: false, assembled: false
+};
+
+function drawScene(ctx, w, h, t) {
+  ctx.clearRect(0,0,w,h);
+  // Background
+  ctx.fillStyle='#04080f';ctx.fillRect(0,0,w,h);
+  for(let x=0;x<w;x+=22){ctx.beginPath();ctx.moveTo(x,0);ctx.lineTo(x,h);ctx.strokeStyle='rgba(0,229,255,0.025)';ctx.lineWidth=1;ctx.stroke();}
+  for(let y=0;y<h;y+=22){ctx.beginPath();ctx.moveTo(0,y);ctx.lineTo(w,y);ctx.stroke();}
+
+  const ox=w/2+(-20)*scene.zoom, oy=h/2+(20)*scene.zoom;
+  const s=scene.zoom;
+
+  // Ease function for assembly
+  const ease=(v)=>v<.5?2*v*v:1-Math.pow(-2*v+2,2)/2;
+  const prog=ease(Math.min(t,1));
+
+  // ── Arduino ──
+  const aox=ox-100*s, aoy=oy-10*s;
+  const aStartY=aoy-120;
+  const aCurY=t===null?aoy:aStartY+(aoy-aStartY)*ease(Math.min(t*1.5,1));
+  isoBox(ctx,aox,aCurY,-28,-18,0,56*s,36*s,3*s,'#1e8a45','#167a38','#0f6028');
+  isoBox(ctx,aox,aCurY,-32,-6,2,6*s,12*s,5*s,'#aaa','#888','#666');
+  isoBox(ctx,aox,aCurY,-8,-8,3,16*s,14*s,3*s,'#111','#0a0a0a','#080808');
+  for(let i=0;i<5;i++){isoBox(ctx,aox,aCurY,-20+i*9,-22,1,4*s,3*s,2*s,'#d4aa00','#b08800','#806600');}
+  for(let i=0;i<5;i++){isoBox(ctx,aox,aCurY,-20+i*9,18,1,4*s,3*s,2*s,'#d4aa00','#b08800','#806600');}
+  ctx.save();const lp=iso(-16,-15,4);ctx.beginPath();ctx.arc(aox+lp.sx,aCurY+lp.sy,3.5*s,0,Math.PI*2);ctx.fillStyle='#00ff88';ctx.shadowColor='#00ff88';ctx.shadowBlur=10;ctx.fill();ctx.restore();
+
+  // ── Breadboard ──
+  const box=ox+20*s, boy=oy;
+  const bStartY=boy-100;
+  const bCurY=t===null?boy:bStartY+(boy-bStartY)*ease(Math.min((t-.1)*1.5,1));
+  if(t===null||t>.07){
+    isoBox(ctx,box,bCurY,-36,-22,0,72*s,44*s,4*s,'#e8dfc8','#c8b898','#a89068');
+    isoBox(ctx,box,bCurY,-34,-20,4,68*s,5*s,2*s,'#dd2020','#aa1818','#881010');
+    isoBox(ctx,box,bCurY,-34,15,4,68*s,5*s,2*s,'#1a5cc8','#1448a0','#0e3880');
+    for(let r=0;r<3;r++)for(let c=0;c<8;c++){const hp=iso(-26+c*7,-8+r*8,5);ctx.beginPath();ctx.arc(box+hp.sx,bCurY+hp.sy,1.6*s,0,Math.PI*2);ctx.fillStyle='#8a7a60';ctx.fill();}
+  }
+
+  // ── Resistors ──
+  if(t===null||t>.2){
+    const rox=box+8*s,roy=bCurY-18*s;
+    const rStartY=roy-60;const rCurY=t===null?roy:rStartY+(roy-rStartY)*ease(Math.min((t-.2)*2,1));
+    isoBox(ctx,rox,rCurY,-14,-1.5,5,28*s,3*s,4*s,'#d4a060','#b08040','#806020');
+    [['#cc2010','#991508','#771006'],['#111','#0a0a0a','#080808'],['#c8a000','#a07800','#806000']].forEach(([t2,l,r],i)=>{isoBox(ctx,rox,rCurY,-8+i*6,-1.5,9,4*s,3*s,1.5*s,t2,l,r);});
+    isoBox(ctx,rox,rCurY,-18,-1,5,5*s,2*s,2*s,'#c8a000','#a07800','#806000');
+    isoBox(ctx,rox,rCurY,13,-1,5,5*s,2*s,2*s,'#c8a000','#a07800','#806000');
+  }
+
+  // ── White LED ──
+  if(t===null||t>.35){
+    const wlox=box-12*s, wloy=bCurY-32*s;
+    const wStartY=wloy-60; const wCurY=t===null?wloy:wStartY+(wloy-wStartY)*ease(Math.min((t-.35)*2,1));
+    isoBox(ctx,wlox,wCurY,-1,-1,-16,2*s,2*s,16*s,'#c8a000','#a07800','#806000');
+    for(let i=0;i<7;i++){const f=Math.sin((i/6)*Math.PI);const sv=5*s*f;isoBox(ctx,wlox,wCurY,-sv/2,-sv/2,i*3*s,sv,sv,3*s,'rgba(230,230,255,0.95)','rgba(180,180,220,0.7)','rgba(160,160,200,0.6)');}
+    ctx.save();const wg=iso(0,0,24);ctx.beginPath();ctx.arc(wlox+wg.sx,wCurY+wg.sy,12*s,0,Math.PI*2);ctx.fillStyle='rgba(255,255,255,0.12)';ctx.shadowColor='rgba(255,255,255,.9)';ctx.shadowBlur=18;ctx.fill();ctx.restore();
+    ctx.save();ctx.fillStyle='rgba(255,255,255,0.7)';ctx.font=`bold ${7*s}px JetBrains Mono`;const wl=iso(0,0,26);ctx.fillText('W',wlox+wl.sx-5*s,wCurY+wl.sy+16*s);ctx.restore();
+  }
+
+  // ── Red LED ──
+  if(t===null||t>.5){
+    const rlox=box+18*s, rloy=bCurY-28*s;
+    const rStartY=rloy-60; const rCurY=t===null?rloy:rStartY+(rloy-rloy)*1+rStartY*(1-ease(Math.min((t-.5)*2,1)))+rloy*ease(Math.min((t-.5)*2,1));
+    const finalY=rloy;const startY2=finalY-60;const rCurY2=t===null?finalY:startY2+(finalY-startY2)*ease(Math.min((t-.5)*2,1));
+    isoBox(ctx,rlox,rCurY2,-1,-1,-16,2*s,2*s,16*s,'#c8a000','#a07800','#806000');
+    for(let i=0;i<7;i++){const f=Math.sin((i/6)*Math.PI);const sv=5*s*f;isoBox(ctx,rlox,rCurY2,-sv/2,-sv/2,i*3*s,sv,sv,3*s,'#ff4c6a','#cc2a48','#aa1830');}
+    ctx.save();const rg=iso(0,0,24);ctx.beginPath();ctx.arc(rlox+rg.sx,rCurY2+rg.sy,12*s,0,Math.PI*2);ctx.fillStyle='rgba(255,76,106,0.12)';ctx.shadowColor='#ff4c6a';ctx.shadowBlur=18;ctx.fill();ctx.restore();
+    ctx.save();ctx.fillStyle='#ff4c6a';ctx.font=`bold ${7*s}px JetBrains Mono`;const rl=iso(0,0,26);ctx.fillText('R',rlox+rl.sx-4*s,rCurY2+rl.sy+16*s);ctx.restore();
+  }
+
+  // ── Button ──
+  if(t===null||t>.65){
+    const btox=ox+130*s, btoy=oy-5*s;
+    const bStartY2=btoy-70; const btCurY=t===null?btoy:bStartY2+(btoy-bStartY2)*ease(Math.min((t-.65)*2,1));
+    isoBox(ctx,btox,btCurY,-10,-10,0,20*s,20*s,3*s,'#1e8a45','#167a38','#0f6028');
+    isoBox(ctx,btox,btCurY,-8,-8,3,16*s,16*s,5*s,'#252525','#181818','#101010');
+    isoBox(ctx,btox,btCurY,-6,-6,8,12*s,12*s,5*s,'#cc1818','#991010','#770c0c');
+    [[-8,-8],[6,-8],[-8,6],[6,6]].forEach(([px,py])=>isoBox(ctx,btox,btCurY,px,py,-3,2*s,2*s,3*s,'#d4aa00','#b08800','#806600'));
+  }
+
+  // ── Wires (only after mostly assembled) ──
+  if(t===null||t>.75){
+    const alpha=t===null?1:ease(Math.min((t-.75)*4,1));
+    ctx.save();ctx.globalAlpha=alpha;
+    function wire(x1,y1,x2,y2,col,dash=[]){ctx.strokeStyle=col;ctx.lineWidth=2*s;ctx.shadowColor=col;ctx.shadowBlur=5;ctx.setLineDash(dash);ctx.beginPath();ctx.moveTo(x1,y1);ctx.lineTo(x2,y2);ctx.stroke();ctx.setLineDash([]);}
+    const aPin=iso(8,-22,3),bEdge=iso(-36,-16,5);wire(aox+aPin.sx,oy-10+aPin.sy,box+bEdge.sx,oy+bEdge.sy,'#f39c12');
+    const aGnd=iso(-4,18,3),bGnd=iso(-20,16,5);wire(aox+aGnd.sx,oy-10+aGnd.sy,box+bGnd.sx,oy+bGnd.sy,'#00e5b0');
+    const bR=iso(36,-2,5),btL=iso(-10,-8,3);wire(box+bR.sx,oy+bR.sy,ox+130*s+btL.sx,oy-5*s+btL.sy,'#dddddd');
+    const usbP=iso(-32,-1,3);wire(aox+usbP.sx,oy-10+usbP.sy,aox+usbP.sx-40*s,oy-10+usbP.sy+8*s,'#555555');
+    ctx.restore();
+    // USB plug
+    ctx.save();ctx.globalAlpha=alpha;ctx.fillStyle='#777';const ue={x:aox+iso(-32,-1,3).sx-40*s,y:oy-10+iso(-32,-1,3).sy+8*s};ctx.fillRect(ue.x-10*s,ue.y-6*s,10*s,12*s);ctx.fillStyle='rgba(0,229,255,0.7)';ctx.font=`bold ${7*s}px JetBrains Mono`;ctx.fillText('USB PORT 3',ue.x-30*s,ue.y+22*s);ctx.restore();
+  }
+
+  // Title
+  ctx.save();ctx.fillStyle='rgba(0,229,255,0.5)';ctx.font=`bold ${8*s}px JetBrains Mono`;ctx.fillText('// NETGUARD CIRCUIT',w/2-60*s,18*s);ctx.restore();
+  // Hint
+  if(t===null||t>=1){ctx.save();ctx.fillStyle='rgba(91,122,157,0.7)';ctx.font=`${7*s}px JetBrains Mono`;ctx.fillText('🖱 Drag to rotate · Scroll to zoom',w/2-70*s,h-12);ctx.restore();}
+}
+
+// ═══════════════════════════════
+// ANIMATION
+// ═══════════════════════════════
+let animRAF=null;
+
+function getCtxForCombined(){
+  const canvas=document.getElementById('c-combined');
+  const wrap=canvas.parentElement;
+  const w=wrap.clientWidth,h=340;
+  if(canvas.width!==w*DPR){canvas.width=w*DPR;canvas.height=h*DPR;canvas.style.width=w+'px';canvas.style.height=h+'px';}
+  const ctx=canvas.getContext('2d');ctx.setTransform(DPR,0,0,DPR,0,0);
+  return{ctx,w,h};
+}
+
+function startCombineAnimation(){
+  const btn=document.getElementById('combine-btn');
+  const wrap=document.getElementById('combined-wrap');
+  btn.disabled=true; btn.textContent='⚙ Assembling…';
+  wrap.classList.add('visible');
+  scene.assembling=true; scene.assembleT=0; scene.assembled=false;
+  let start=null;
+  function step(ts){
+    if(!start)start=ts;
+    const elapsed=(ts-start)/2000; // 2s animation
+    scene.assembleT=Math.min(elapsed,1);
+    const{ctx,w,h}=getCtxForCombined();
+    drawScene(ctx,w,h,scene.assembleT);
+    if(scene.assembleT<1){animRAF=requestAnimationFrame(step);}
+    else{
+      scene.assembled=true;scene.assembling=false;
+      btn.textContent='✅ Circuit Assembled — Drag to Rotate';
+      setupDrag();
+      wrap.scrollIntoView({behavior:'smooth',block:'nearest'});
+    }
+  }
+  animRAF=requestAnimationFrame(step);
+}
+
+function redrawCombined(){
+  const{ctx,w,h}=getCtxForCombined();
+  drawScene(ctx,w,h,null);
+}
+
+function setupDrag(){
+  const canvas=document.getElementById('c-combined');
+  canvas.addEventListener('mousedown',e=>{scene.dragging=true;scene.lastX=e.clientX;scene.lastY=e.clientY;});
+  window.addEventListener('mousemove',e=>{
+    if(!scene.dragging)return;
+    scene.rotY+=(e.clientX-scene.lastX)*0.008;
+    scene.rotX+=(e.clientY-scene.lastY)*0.008;
+    scene.lastX=e.clientX;scene.lastY=e.clientY;
+    redrawCombined();
+  });
+  window.addEventListener('mouseup',()=>scene.dragging=false);
+  canvas.addEventListener('wheel',e=>{
+    e.preventDefault();
+    scene.zoom=Math.max(0.4,Math.min(2.0,scene.zoom-e.deltaY*0.001));
+    redrawCombined();
+  },{passive:false});
+  // Touch
+  let lastTouchX=0,lastTouchY=0;
+  canvas.addEventListener('touchstart',e=>{lastTouchX=e.touches[0].clientX;lastTouchY=e.touches[0].clientY;});
+  canvas.addEventListener('touchmove',e=>{
+    e.preventDefault();
+    scene.rotY+=(e.touches[0].clientX-lastTouchX)*0.01;
+    lastTouchX=e.touches[0].clientX;lastTouchY=e.touches[0].clientY;
+    redrawCombined();
+  },{passive:false});
+}
+
+// ═══════════════════════════════
+// FULLSCREEN
+// ═══════════════════════════════
+function openFullscreen(){
+  const ov=document.getElementById('fs-overlay');
+  ov.classList.add('open');
+  document.body.style.overflow='hidden';
+  setTimeout(()=>{
+    const canvas=document.getElementById('fs-canvas');
+    const w=canvas.clientWidth,h=canvas.clientHeight;
+    canvas.width=w*DPR;canvas.height=h*DPR;
+    const ctx=canvas.getContext('2d');ctx.scale(DPR,DPR);
+    drawScene(ctx,w,h,null);
+    // Drag on fullscreen
+    canvas.addEventListener('mousedown',e=>{scene.dragging=true;scene.lastX=e.clientX;scene.lastY=e.clientY;});
+    canvas.addEventListener('wheel',e=>{e.preventDefault();scene.zoom=Math.max(0.3,Math.min(3,scene.zoom-e.deltaY*0.001));const ctx2=canvas.getContext('2d');ctx2.setTransform(DPR,0,0,DPR,0,0);drawScene(ctx2,w,h,null);},{passive:false});
+    window.addEventListener('mousemove',e=>{
+      if(!scene.dragging)return;
+      scene.rotY+=(e.clientX-scene.lastX)*0.007;
+      scene.rotX+=(e.clientY-scene.lastY)*0.007;
+      scene.lastX=e.clientX;scene.lastY=e.clientY;
+      const ctx2=canvas.getContext('2d');ctx2.setTransform(DPR,0,0,DPR,0,0);drawScene(ctx2,w,h,null);
+    });
+  },50);
+}
+function closeFullscreen(){
+  document.getElementById('fs-overlay').classList.remove('open');
+  document.body.style.overflow='';
+  scene.dragging=false;
+}
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeFullscreen();});
+
+// ═══════════════════════════════
+// INIT PART CANVASES
+// ═══════════════════════════════
+function initC(id,fn){
+  const canvas=document.getElementById(id);
+  const wrap=canvas.parentElement;
+  const w=wrap.clientWidth,h=wrap.clientHeight;
+  canvas.width=w*DPR;canvas.height=h*DPR;canvas.style.width=w+'px';canvas.style.height=h+'px';
+  const ctx=canvas.getContext('2d');ctx.scale(DPR,DPR);
+  fn(ctx,w,h);
+}
+
+function wobble(cardId, canvasId, drawFn){
+  const card=document.getElementById(cardId);
+  let anim=null;
+  card.addEventListener('mouseenter',()=>{
+    let a=0;
+    function step(){
+      const{ctx,w,h}=initCR(canvasId);
+      // slight scale pulse
+      ctx.save();const cx=w/2,cy=h/2;ctx.translate(cx,cy);ctx.scale(1+Math.sin(a)*0.04,1+Math.sin(a)*0.04);ctx.translate(-cx,-cy);
+      drawFn(ctx,w,h);ctx.restore();
+      a+=0.15;if(a<Math.PI*2){anim=requestAnimationFrame(step);}
+      else{const{ctx:c2,w:w2,h:h2}=initCR(canvasId);drawFn(c2,w2,h2);}
+    }
+    if(anim)cancelAnimationFrame(anim);step();
+  });
+}
+
+function initCR(id){
+  const canvas=document.getElementById(id);const wrap=canvas.parentElement;
+  const w=wrap.clientWidth,h=wrap.clientHeight;
+  const ctx=canvas.getContext('2d');ctx.setTransform(DPR,0,0,DPR,0,0);
+  return{ctx,w,h};
+}
+
+window.addEventListener('load',()=>{
+  initC('c-arduino',drawArduino);
+  initC('c-breadboard',drawBreadboard);
+  initC('c-led-white',(c,w,h)=>drawLED(c,w,h,'#d8d8ff','rgba(255,255,255,0.9)'));
+  initC('c-led-red',(c,w,h)=>drawLED(c,w,h,'#ff4c6a','#ff4c6a'));
+  initC('c-resistor',drawResistor);
+  initC('c-button',drawButton);
+
+  // Spin arduino continuously
+  let angle=0;
+  (function spinArduino(){
+    angle+=0.008;
+    const{ctx,w,h}=initCR('c-arduino');
+    drawArduino(ctx,w,h);
+    requestAnimationFrame(spinArduino);
+  })();
+
+  wobble('pc-breadboard','c-breadboard',drawBreadboard);
+  wobble('pc-led-white','c-led-white',(c,w,h)=>drawLED(c,w,h,'#d8d8ff','rgba(255,255,255,0.9)'));
+  wobble('pc-led-red','c-led-red',(c,w,h)=>drawLED(c,w,h,'#ff4c6a','#ff4c6a'));
+  wobble('pc-resistor','c-resistor',drawResistor);
+  wobble('pc-button','c-button',drawButton);
+});
+</script>
+</body>
+</html>    <h2>Project Goals</h2>
     <ul class="obj-list" aria-label="Project objectives">
       <li>Monitor network traffic in real time with zero manual intervention</li>
       <li>Detect suspicious activities, DDoS attempts, and unauthorized scans</li>
