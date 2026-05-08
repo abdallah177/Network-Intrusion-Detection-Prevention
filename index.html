@@ -287,8 +287,7 @@
     <p style="margin-bottom:20px;">NetGuard integrates an <strong>Arduino Uno</strong> as a physical network status display. The Arduino receives serial commands from NetGuard and controls LEDs using <code style="font-family:'JetBrains Mono',monospace;font-size:.85em;color:var(--accent);background:rgba(0,229,255,.08);padding:1px 6px;border-radius:4px;">digitalWrite()</code> — setting pins HIGH (5V on) and LOW (0V off) with timed delays to create the blink pattern.</p>
 
     <div class="port-note">
-      ⚠️ &nbsp;<strong>Important:</strong> Connect the Arduino to <strong>USB Port 3</strong>. Each LED needs a <strong>220Ω resistor</strong> in series — connect the longer leg (anode +) through the resistor to the digital pin, and the shorter leg (cathode −) to GND. Skipping the resistor will burn out the LED instantly.
-    </div>
+      ⚠️ &nbsp;<strong>Important:</strong> Connect the Arduino to <strong>USB Port 3</strong>. 
 
     <div class="led-behavior">
       <div class="led-item">
